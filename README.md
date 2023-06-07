@@ -42,7 +42,33 @@ ilya@ilya-ROG-Strix-G513QY-G513QY:~/control_work_practice$ mv all_animals mans_f
 ilya@ilya-ROG-Strix-G513QY-G513QY:~/control_work_practice$ mkdir tmpDir && mv mans_friends ./tmpDir
 ```
 3. Подключить дополнительный репозиторий MySQL. Установить любой пакет из этого репозитория.
+```
+lesson@serverub:~$ wget https://repo.mysql.com//mysql-apt-config_0.8.25-1_all.deb
+--2023-06-07 12:13:40--  https://repo.mysql.com//mysql-apt-config_0.8.25-1_all.deb
+Resolving repo.mysql.com (repo.mysql.com)... 104.73.92.227
+Connecting to repo.mysql.com (repo.mysql.com)|104.73.92.227|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 18120 (18K) [application/x-debian-package]
+Saving to: ‘mysql-apt-config_0.8.25-1_all.deb’
+
+mysql-apt-config_0.8.25-1_all.deb                                    100%[====================================================================================================================================================================>]  17.70K  --.-KB/s    in 0s      
+
+2023-06-07 12:13:40 (159 MB/s) - ‘mysql-apt-config_0.8.25-1_all.deb’ saved [18120/18120]
+
+lesson@serverub:~$ sudo dpkg -i mysql-apt-config_0.8.25-1_all.deb 
+[sudo] password for lesson: 
+Selecting previously unselected package mysql-apt-config.
+(Reading database ... 111014 files and directories currently installed.)
+Preparing to unpack mysql-apt-config_0.8.25-1_all.deb ...
+Unpacking mysql-apt-config (0.8.25-1) ...
+Setting up mysql-apt-config (0.8.25-1) ...
+
+lesson@serverub:~$ sudo apt install mysql-client
+```
 4. Установить и удалить deb-пакет с помощью dpkg.
+```
+
+```
 5. Выложить историю команд в терминале ubuntu
 6. Нарисовать диаграмму, в которой есть класс родительский класс, домашние животные и вьючные животные, в составы которых в случае домашних животных войдут классы: собаки, кошки, хомяки, а в класс вьючные животные войдут: Лошади, верблюды и ослы).
 7. В подключенном MySQL репозитории создать базу данных “Друзья человека”
