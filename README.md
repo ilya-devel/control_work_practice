@@ -6,27 +6,17 @@
 
 1. Используя команду cat в терминале операционной системы Linux, создать два файла Домашние животные (заполнив файл собаками, кошками, хомяками) и Вьючные животными заполнив файл Лошадьми, верблюдами и ослы), а затем объединить их. Просмотреть содержимое созданного файла. Переименовать файл, дав ему новое имя (Друзья человека).
 ```
-ilya@ilya-ROG-Strix-G513QY-G513QY:~/_Developing/_Education/control_work_practice$ cat > pets
+ilya@ilya-ROG-Strix-G513QY-G513QY:~/control_work_practice$ cat > pets
 dog
 cat
 hamster
 
-ilya@ilya-ROG-Strix-G513QY-G513QY:~/_Developing/_Education/control_work_practice$ cat > pack_animal
+ilya@ilya-ROG-Strix-G513QY-G513QY:~/control_work_practice$ cat > pack_animal
 cow
 horse
 donkey
 
-ilya@ilya-ROG-Strix-G513QY-G513QY:~/_Developing/_Education/control_work_practice$ cat pets pack_animal 
-dog
-cat
-hamster
-cow
-horse
-donkey
-
-ilya@ilya-ROG-Strix-G513QY-G513QY:~/_Developing/_Education/control_work_practice$ cat pets pack_animal > all_animals
-
-ilya@ilya-ROG-Strix-G513QY-G513QY:~/_Developing/_Education/control_work_practice$ cat all_animals 
+ilya@ilya-ROG-Strix-G513QY-G513QY:~/control_work_practice$ cat pets pack_animal 
 dog
 cat
 hamster
@@ -34,12 +24,22 @@ cow
 horse
 donkey
 
-ilya@ilya-ROG-Strix-G513QY-G513QY:~/_Developing/_Education/control_work_practice$ mv all_animals mans_friends
+ilya@ilya-ROG-Strix-G513QY-G513QY:~/control_work_practice$ cat pets pack_animal > all_animals
+
+ilya@ilya-ROG-Strix-G513QY-G513QY:~/control_work_practice$ cat all_animals 
+dog
+cat
+hamster
+cow
+horse
+donkey
+
+ilya@ilya-ROG-Strix-G513QY-G513QY:~/control_work_practice$ mv all_animals mans_friends
 
 ```
 2. Создать директорию, переместить файл туда.
 ```
-
+ilya@ilya-ROG-Strix-G513QY-G513QY:~/control_work_practice$ mkdir tmpDir && mv mans_friends ./tmpDir
 ```
 3. Подключить дополнительный репозиторий MySQL. Установить любой пакет из этого репозитория.
 4. Установить и удалить deb-пакет с помощью dpkg.
