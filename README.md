@@ -5,7 +5,7 @@
 Задание
 
 1. Используя команду cat в терминале операционной системы Linux, создать два файла Домашние животные (заполнив файл собаками, кошками, хомяками) и Вьючные животными заполнив файл Лошадьми, верблюдами и ослы), а затем объединить их. Просмотреть содержимое созданного файла. Переименовать файл, дав ему новое имя (Друзья человека).
-```
+```shell
 ilya@ilya-ROG-Strix-G513QY-G513QY:~/control_work_practice$ cat > pets
 dog
 cat
@@ -38,11 +38,11 @@ ilya@ilya-ROG-Strix-G513QY-G513QY:~/control_work_practice$ mv all_animals mans_f
 
 ```
 2. Создать директорию, переместить файл туда.
-```
+```shell
 ilya@ilya-ROG-Strix-G513QY-G513QY:~/control_work_practice$ mkdir tmpDir && mv mans_friends ./tmpDir
 ```
 3. Подключить дополнительный репозиторий MySQL. Установить любой пакет из этого репозитория.
-```
+```shell
 lesson@serverub:~$ wget https://repo.mysql.com//mysql-apt-config_0.8.25-1_all.deb
 --2023-06-07 12:13:40--  https://repo.mysql.com//mysql-apt-config_0.8.25-1_all.deb
 Resolving repo.mysql.com (repo.mysql.com)... 104.73.92.227
@@ -66,7 +66,7 @@ Setting up mysql-apt-config (0.8.25-1) ...
 lesson@serverub:~$ sudo apt install mysql-client
 ```
 4. Установить и удалить deb-пакет с помощью dpkg.
-```
+```shell
 sudo dpkg -i <deb-package_name>
 
 sudo dpkg -r <deb-package_name> 
@@ -74,7 +74,7 @@ sudo dpkg -r <deb-package_name>
 sudo dpkg -P <deb-package_name> # полное удаление
 ```
 5. Выложить историю команд в терминале ubuntu
-```
+```shell
 lesson@serverub:~$ history | tail
  1146  sudo systemctl start mysql
  1147  sudo systemctl start mysql-server
@@ -91,13 +91,13 @@ lesson@serverub:~$ history | tail
 6. Нарисовать диаграмму, в которой есть класс родительский класс, домашние животные и вьючные животные, в составы которых в случае домашних животных войдут классы: собаки, кошки, хомяки, а в класс вьючные животные войдут: Лошади, верблюды и ослы).
 ![diagram](animal_diagram.png "diagram")
 7. В подключенном MySQL репозитории создать базу данных “Друзья человека”
-```
+```sql
 CREATE DATABASE mans_friends;
 
 USE mans_friends;
 ```
 8. Создать таблицы с иерархией из диаграммы в БД
-```
+```sql
 CREATE TABLE animal_type (
 	id_animal INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     animal_type VARCHAR(20) NOT NULL
@@ -172,7 +172,7 @@ CREATE TABLE camels (
 );
 ```
 9. Заполнить низкоуровневые таблицы именами(животных), командами которые они выполняют и датами рождения
-```
+```sql
 INSERT INTO animal_type (animal_type) VALUES 
 	("Pets"),
     ("Pack animals")
@@ -214,13 +214,32 @@ INSERT INTO camels (name, make_command, birthday, animal_kind) VALUES
 ;
 ```
 10. Удалив из таблицы верблюдов, т.к. верблюдов решили перевезти в другой питомник на зимовку. Объединить таблицы лошади, и ослы в одну таблицу.
-```
+```sql
 DROP TABLE camels;
 
 SELECT * FROM horses UNION SELECT * FROM donkeys;
 ```
 11. Создать новую таблицу “молодые животные” в которую попадут все животные старше 1 года, но младше 3 лет и в отдельном столбце с точностью до месяца подсчитать возраст животных в новой таблице
+```sql
+CREATE TABLE young_animal AS (
+SELECT *, TIMESTAMPDIFF(MONTH, birthday, NOW()) AS ages
+FROM 
+	(SELECT name, make_command, birthday, p.animal_kind, a_t.animal_type FROM dogs AS d LEFT JOIN pets_kind AS p ON d.animal_kind = p.id_pets LEFT JOIN animal_type AS a_t ON p.animal_type = a_t.id_animal UNION
+	SELECT name, make_command, birthday, p.animal_kind, a_t.animal_type FROM cats AS c LEFT JOIN pets_kind AS p ON c.animal_kind = p.id_pets LEFT JOIN animal_type AS a_t ON p.animal_type = a_t.id_animal UNION
+	SELECT name, make_command, birthday, p.animal_kind, a_t.animal_type FROM hamsters AS h LEFT JOIN pets_kind AS p ON h.animal_kind = p.id_pets LEFT JOIN animal_type AS a_t ON p.animal_type = a_t.id_animal UNION
+	SELECT name, make_command, birthday, pa.animal_kind, a_t.animal_type FROM horses AS h LEFT JOIN pack_animal_kind AS pa ON h.animal_kind = pa.id_pack_animal LEFT JOIN animal_type AS a_t ON pa.animal_type = a_t.id_animal UNION
+	SELECT name, make_command, birthday, pa.animal_kind, a_t.animal_type FROM donkeys AS d LEFT JOIN pack_animal_kind AS pa ON d.animal_kind = pa.id_pack_animal LEFT JOIN animal_type AS a_t ON pa.animal_type = a_t.id_animal)
+ AS tmp
+ HAVING ages BETWEEN 12 AND 36);
+```
 12. Объединить все таблицы в одну, при этом сохраняя поля, указывающие на прошлую принадлежность к старым таблицам.
+```sql
+CREATE TABLE all_animals AS (SELECT name, make_command, birthday, p.animal_kind, a_t.animal_type FROM dogs AS d LEFT JOIN pets_kind AS p ON d.animal_kind = p.id_pets LEFT JOIN animal_type AS a_t ON p.animal_type = a_t.id_animal UNION
+SELECT name, make_command, birthday, p.animal_kind, a_t.animal_type FROM cats AS c LEFT JOIN pets_kind AS p ON c.animal_kind = p.id_pets LEFT JOIN animal_type AS a_t ON p.animal_type = a_t.id_animal UNION
+SELECT name, make_command, birthday, p.animal_kind, a_t.animal_type FROM hamsters AS h LEFT JOIN pets_kind AS p ON h.animal_kind = p.id_pets LEFT JOIN animal_type AS a_t ON p.animal_type = a_t.id_animal UNION
+SELECT name, make_command, birthday, pa.animal_kind, a_t.animal_type FROM horses AS h LEFT JOIN pack_animal_kind AS pa ON h.animal_kind = pa.id_pack_animal LEFT JOIN animal_type AS a_t ON pa.animal_type = a_t.id_animal UNION
+SELECT name, make_command, birthday, pa.animal_kind, a_t.animal_type FROM donkeys AS d LEFT JOIN pack_animal_kind AS pa ON d.animal_kind = pa.id_pack_animal LEFT JOIN animal_type AS a_t ON pa.animal_type = a_t.id_animal);
+```
 13. Создать класс с Инкапсуляцией методов и наследованием по диаграмме.
 14. Написать программу, имитирующую работу реестра домашних животных. В программе должен быть реализован следующий функционал:
     1. Завести новое животное
