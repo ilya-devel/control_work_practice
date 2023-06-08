@@ -91,8 +91,116 @@ lesson@serverub:~$ history | tail
 6. Нарисовать диаграмму, в которой есть класс родительский класс, домашние животные и вьючные животные, в составы которых в случае домашних животных войдут классы: собаки, кошки, хомяки, а в класс вьючные животные войдут: Лошади, верблюды и ослы).
 ![diagram](animal_diagram.png "diagram")
 7. В подключенном MySQL репозитории создать базу данных “Друзья человека”
+```
+CREATE DATABASE mans_friends;
+
+USE mans_friends;
+```
 8. Создать таблицы с иерархией из диаграммы в БД
+```
+CREATE TABLE animal_type (
+	id_animal INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    animal_type VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE pets_kind (
+	id_pets INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    animal_kind VARCHAR(20) NOT NULL,
+    animal_type INT NOT NULL,
+    FOREIGN KEY (animal_type) REFERENCES animal_type (id_animal)
+);
+
+CREATE TABLE pack_animal_kind (
+	id_pack_animal INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    animal_kind VARCHAR(20) NOT NULL,
+    animal_type INT NOT NULL,
+    FOREIGN KEY (animal_type) REFERENCES animal_type (id_animal)
+);
+
+CREATE TABLE dogs (
+	id_dogs INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    name VARCHAR(30) NOT NULL,
+    make_command VARCHAR(100),
+    birthday DATE
+);
+
+CREATE TABLE cats (
+	id_dogs INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    name VARCHAR(30) NOT NULL,
+    make_command VARCHAR(100),
+    birthday DATE
+);
+
+CREATE TABLE hamsters (
+	id_dogs INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    name VARCHAR(30) NOT NULL,
+    make_command VARCHAR(100),
+    birthday DATE
+);
+
+CREATE TABLE horses (
+	id_dogs INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    name VARCHAR(30) NOT NULL,
+    make_command VARCHAR(100),
+    birthday DATE
+);
+
+CREATE TABLE donkeys (
+	id_dogs INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    name VARCHAR(30) NOT NULL,
+    make_command VARCHAR(100),
+    birthday DATE
+);
+
+CREATE TABLE camels (
+	id_dogs INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    name VARCHAR(30) NOT NULL,
+    make_command VARCHAR(100),
+    birthday DATE
+);
+```
 9. Заполнить низкоуровневые таблицы именами(животных), командами которые они выполняют и датами рождения
+```
+INSERT INTO animal_type (animal_type) VALUES 
+	("Pets"),
+    ("Pack animals")
+;
+INSERT INTO pets_kind (animal_kind, animal_type) VALUES 
+	("Dogs", (SELECT id_animal FROM animal_type WHERE animal_type = "Pets")),
+    ("Cats", (SELECT id_animal FROM animal_type WHERE animal_type = "Pets")),
+    ("Hamsters", (SELECT id_animal FROM animal_type WHERE animal_type = "Pets"))
+;
+INSERT INTO pack_animal_kind (animal_kind, animal_type) VALUES 
+	("Horses", (SELECT id_animal FROM animal_type WHERE animal_type = "Pack animals")),
+    ("Camels", (SELECT id_animal FROM animal_type WHERE animal_type = "Pack animals")),
+    ("Donkeys", (SELECT id_animal FROM animal_type WHERE animal_type = "Pack animals"))
+;
+
+INSERT INTO dogs (name, make_command, birthday) VALUES 
+	("Bobik", "sitdown, voice", "2023-01-07"),
+    ("Bilbo", "sitdown, voice, eat", "2015-06-21")
+;
+INSERT INTO cats (name, make_command, birthday) VALUES 
+	("Whiski", "sitdown, go to me", "2023-01-07"),
+    ("Black", "sitdown, go to me, eat", "2015-06-21")
+;
+INSERT INTO hamsters (name, make_command, birthday) VALUES 
+	("Bobik", "lie", "2023-01-07"),
+    ("Bilbo", "lie, eat", "2015-06-21")
+;
+INSERT INTO horses (name, make_command, birthday) VALUES 
+	("Bobik", "follow me, voice", "2023-01-07"),
+    ("Bilbo", "follow me, voice, eat", "2015-06-21")
+;
+INSERT INTO donkeys (name, make_command, birthday) VALUES 
+	("Bobik", "follow me, voice", "2023-01-07"),
+    ("Bilbo", "follow me, voice, eat", "2015-06-21")
+;
+INSERT INTO camels (name, make_command, birthday) VALUES 
+	("Bobik", "sitdown, follow me, voice", "2023-01-07"),
+    ("Bilbo", "sitdown, follow me, voice, eat", "2015-06-21")
+;
+```
 10. Удалив из таблицы верблюдов, т.к. верблюдов решили перевезти в другой питомник на зимовку. Объединить таблицы лошади, и ослы в одну таблицу.
 11. Создать новую таблицу “молодые животные” в которую попадут все животные старше 1 года, но младше 3 лет и в отдельном столбце с точностью до месяца подсчитать возраст животных в новой таблице
 12. Объединить все таблицы в одну, при этом сохраняя поля, указывающие на прошлую принадлежность к старым таблицам.
