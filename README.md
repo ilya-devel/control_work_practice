@@ -67,9 +67,27 @@ lesson@serverub:~$ sudo apt install mysql-client
 ```
 4. Установить и удалить deb-пакет с помощью dpkg.
 ```
+sudo dpkg -i <deb-package_name>
 
+sudo dpkg -r <deb-package_name> 
+или
+sudo dpkg -P <deb-package_name> # полное удаление
 ```
 5. Выложить историю команд в терминале ubuntu
+```
+lesson@serverub:~$ history | tail
+ 1146  sudo systemctl start mysql
+ 1147  sudo systemctl start mysql-server
+ 1148  mysql --version
+ 1149  exit
+ 1150  sudo apt purge mysql-client
+ 1151  sudo shutdown -P now
+ 1152  sudo dpkg --help
+ 1153  history 
+ 1154  sudo history 
+ 1155  history | tail
+
+```
 6. Нарисовать диаграмму, в которой есть класс родительский класс, домашние животные и вьючные животные, в составы которых в случае домашних животных войдут классы: собаки, кошки, хомяки, а в класс вьючные животные войдут: Лошади, верблюды и ослы).
 7. В подключенном MySQL репозитории создать базу данных “Друзья человека”
 8. Создать таблицы с иерархией из диаграммы в БД
