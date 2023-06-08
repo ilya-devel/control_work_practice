@@ -118,45 +118,57 @@ CREATE TABLE pack_animal_kind (
 );
 
 CREATE TABLE dogs (
-	id_dogs INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     name VARCHAR(30) NOT NULL,
     make_command VARCHAR(100),
-    birthday DATE
+    birthday DATE,
+    animal_kind INT,
+    FOREIGN KEY (animal_kind) REFERENCES pets_kind (id_pets)
 );
 
 CREATE TABLE cats (
-	id_dogs INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     name VARCHAR(30) NOT NULL,
     make_command VARCHAR(100),
-    birthday DATE
+    birthday DATE,
+	animal_kind INT,
+    FOREIGN KEY (animal_kind) REFERENCES pets_kind (id_pets)
 );
 
 CREATE TABLE hamsters (
-	id_dogs INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     name VARCHAR(30) NOT NULL,
     make_command VARCHAR(100),
-    birthday DATE
+    birthday DATE,
+    animal_kind INT,
+    FOREIGN KEY (animal_kind) REFERENCES pets_kind (id_pets)
 );
 
 CREATE TABLE horses (
-	id_dogs INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     name VARCHAR(30) NOT NULL,
     make_command VARCHAR(100),
-    birthday DATE
+    birthday DATE,
+    animal_kind INT,
+    FOREIGN KEY (animal_kind) REFERENCES pack_animal_kind (id_pack_animal)
 );
 
 CREATE TABLE donkeys (
-	id_dogs INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     name VARCHAR(30) NOT NULL,
     make_command VARCHAR(100),
-    birthday DATE
+    birthday DATE,
+    animal_kind INT,
+    FOREIGN KEY (animal_kind) REFERENCES pack_animal_kind (id_pack_animal)
 );
 
 CREATE TABLE camels (
-	id_dogs INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     name VARCHAR(30) NOT NULL,
     make_command VARCHAR(100),
-    birthday DATE
+    birthday DATE,
+    animal_kind INT,
+    FOREIGN KEY (animal_kind) REFERENCES pack_animal_kind (id_pack_animal)
 );
 ```
 9. Заполнить низкоуровневые таблицы именами(животных), командами которые они выполняют и датами рождения
@@ -176,32 +188,37 @@ INSERT INTO pack_animal_kind (animal_kind, animal_type) VALUES
     ("Donkeys", (SELECT id_animal FROM animal_type WHERE animal_type = "Pack animals"))
 ;
 
-INSERT INTO dogs (name, make_command, birthday) VALUES 
-	("Bobik", "sitdown, voice", "2023-01-07"),
-    ("Bilbo", "sitdown, voice, eat", "2015-06-21")
+INSERT INTO dogs (name, make_command, birthday, animal_kind) VALUES 
+	("Bobik", "sitdown, voice", "2023-01-07", (SELECT id_pets FROM pets_kind WHERE animal_kind = "Dogs")),
+    ("Bilbo", "sitdown, voice, eat", "2015-06-21", (SELECT id_pets FROM pets_kind WHERE animal_kind = "Dogs"))
 ;
-INSERT INTO cats (name, make_command, birthday) VALUES 
-	("Whiski", "sitdown, go to me", "2023-01-07"),
-    ("Black", "sitdown, go to me, eat", "2015-06-21")
+INSERT INTO cats (name, make_command, birthday, animal_kind) VALUES 
+	("Whiski", "sitdown, go to me", "2023-01-07", (SELECT id_pets FROM pets_kind WHERE animal_kind = "Cats")),
+    ("Black", "sitdown, go to me, eat", "2015-06-21", (SELECT id_pets FROM pets_kind WHERE animal_kind = "Cats"))
 ;
-INSERT INTO hamsters (name, make_command, birthday) VALUES 
-	("Bobik", "lie", "2023-01-07"),
-    ("Bilbo", "lie, eat", "2015-06-21")
+INSERT INTO hamsters (name, make_command, birthday, animal_kind) VALUES 
+	("Bobik", "lie", "2023-01-07", (SELECT id_pets FROM pets_kind WHERE animal_kind = "Hamster")),
+    ("Bilbo", "lie, eat", "2015-06-21", (SELECT id_pets FROM pets_kind WHERE animal_kind = "Hamster"))
 ;
-INSERT INTO horses (name, make_command, birthday) VALUES 
-	("Bobik", "follow me, voice", "2023-01-07"),
-    ("Bilbo", "follow me, voice, eat", "2015-06-21")
+INSERT INTO horses (name, make_command, birthday, animal_kind) VALUES 
+	("Bobik", "follow me, voice", "2023-01-07", (SELECT id_pack_animal FROM pack_animal_kind WHERE animal_kind = "Horses")),
+    ("Bilbo", "follow me, voice, eat", "2015-06-21", (SELECT id_pack_animal FROM pack_animal_kind WHERE animal_kind = "Horses"))
 ;
-INSERT INTO donkeys (name, make_command, birthday) VALUES 
-	("Bobik", "follow me, voice", "2023-01-07"),
-    ("Bilbo", "follow me, voice, eat", "2015-06-21")
+INSERT INTO donkeys (name, make_command, birthday, animal_kind) VALUES 
+	("Bobik", "follow me, voice", "2023-01-07", (SELECT id_pack_animal FROM pack_animal_kind WHERE animal_kind = "Donkeys")),
+    ("Bilbo", "follow me, voice, eat", "2015-06-21", (SELECT id_pack_animal FROM pack_animal_kind WHERE animal_kind = "Donkeys"))
 ;
-INSERT INTO camels (name, make_command, birthday) VALUES 
-	("Bobik", "sitdown, follow me, voice", "2023-01-07"),
-    ("Bilbo", "sitdown, follow me, voice, eat", "2015-06-21")
+INSERT INTO camels (name, make_command, birthday, animal_kind) VALUES 
+	("Bobik", "sitdown, follow me, voice", "2023-01-07", (SELECT id_pack_animal FROM pack_animal_kind WHERE animal_kind = "Camels")),
+    ("Bilbo", "sitdown, follow me, voice, eat", "2015-06-21", (SELECT id_pack_animal FROM pack_animal_kind WHERE animal_kind = "Camels"))
 ;
 ```
 10. Удалив из таблицы верблюдов, т.к. верблюдов решили перевезти в другой питомник на зимовку. Объединить таблицы лошади, и ослы в одну таблицу.
+```
+DROP TABLE camels;
+
+SELECT * FROM horses UNION SELECT * FROM donkeys;
+```
 11. Создать новую таблицу “молодые животные” в которую попадут все животные старше 1 года, но младше 3 лет и в отдельном столбце с точностью до месяца подсчитать возраст животных в новой таблице
 12. Объединить все таблицы в одну, при этом сохраняя поля, указывающие на прошлую принадлежность к старым таблицам.
 13. Создать класс с Инкапсуляцией методов и наследованием по диаграмме.
