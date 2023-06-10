@@ -240,6 +240,9 @@ SELECT name, make_command, birthday, p.animal_kind, a_t.animal_type FROM hamster
 SELECT name, make_command, birthday, pa.animal_kind, a_t.animal_type FROM horses AS h LEFT JOIN pack_animal_kind AS pa ON h.animal_kind = pa.id_pack_animal LEFT JOIN animal_type AS a_t ON pa.animal_type = a_t.id_animal UNION
 SELECT name, make_command, birthday, pa.animal_kind, a_t.animal_type FROM donkeys AS d LEFT JOIN pack_animal_kind AS pa ON d.animal_kind = pa.id_pack_animal LEFT JOIN animal_type AS a_t ON pa.animal_type = a_t.id_animal);
 ```
+
+### Сформировано приложение для выполнения следущих заданий
+
 13. Создать класс с Инкапсуляцией методов и наследованием по диаграмме.
 14. Написать программу, имитирующую работу реестра домашних животных. В программе должен быть реализован следующий функционал:
     1. Завести новое животное
