@@ -1,8 +1,8 @@
 package Classes.Animals;
 
-import Classes.Pets;
+import Classes.PackAnimals;
 
-public class Donkey extends Pets {
+public class Donkey extends PackAnimals {
 
     public Donkey(String name) {
         super(name);
