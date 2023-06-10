@@ -37,8 +37,8 @@ abstract public class Animal {
         return kindAnimal;
     }
 
-    public String getCommands() {
-        return String.join(", ", this.commands);
+    public LinkedList<String> getCommands() {
+        return commands;
     }
 
     public void createEmptyListCommands() {
@@ -58,7 +58,6 @@ abstract public class Animal {
                 "name='" + getName() + '\'' +
                 ", typeAnimal='" + getTypeAnimal() + '\'' +
                 ", kindAnimal='" + getKindAnimal() + '\'' +
-                ", commands=" + getCommands() +
                 '}';
     }
 }
