@@ -9,12 +9,13 @@ public class Menus {
         System.out.println("В нашем питомнике вы можете оствить ваше животное на время или обучить новым коммандам:");
         System.out.println("1. Оставить животное");
         System.out.println("2. Обучить животное");
-        System.out.println("3. Выбрать животное");
+        System.out.println("3. Посмотреть список животных в питомнике");
+        System.out.println("4. Выбрать животное, для просмотра списка известных команд");
         System.out.println("0. Уйти\n");
     }
 
     public static void TypeAnimalMenu() {
-        System.out.println("Мы занимаемся:");
+        System.out.println("Мы занимаемся следующими животными, какое вы хотите добавить:");
         System.out.println("1. Домашними животными");
         System.out.println("2. Вьючными животными");
         System.out.println("0. Назад\n");
@@ -52,5 +53,6 @@ public class Menus {
         for (int i = 0; i < animal.getCommands().size(); i++) {
             System.out.printf("\t%d. %s%n", i, animal.getCommands().get(i));
         }
+        System.out.println();
     }
 }

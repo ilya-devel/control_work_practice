@@ -38,4 +38,9 @@ public class GetAnswer {
             }
         }
     }
+    public static String GetString() {
+        Scanner in = new Scanner(System.in);
+        System.out.print("--> ");
+        return in.nextLine();
+    }
 }
