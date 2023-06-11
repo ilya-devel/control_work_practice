@@ -9,12 +9,12 @@ public class Counter implements AutoCloseable{
         return counter;
     }
 
-    public static void add() {
+    public void add() {
         counter ++;
     }
 
     @Override
     public void close() throws Exception {
-        System.out.println("Отработало закрытие счётчика");
+        throw new RuntimeException("\"Отработало закрытие счётчика\"");
     }
 }

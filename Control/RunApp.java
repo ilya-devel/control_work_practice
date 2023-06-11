@@ -20,18 +20,18 @@ public class RunApp {
             switch (choice) {
                 case 1 -> {
                     try (Counter count = new Counter()) {
-                    System.out.println("Начинаем процедуру добавления животного");
-                    Animal tmp = AddAnimal();
-                    if (tmp != null) {
-                        System.out.println("Укажите список команд, через запятую, которые может выполнять ваше животное");
-                        tmp.addCommands(GetString().split(","));
-                        if (tmp.getName().length() == 0) throw new RuntimeException("Не указано имя питомца");
-                        if (tmp.getCommands().size() == 0) throw new RuntimeException("Не указано ни одной команды");
-                        lstAnimals.add(tmp);
-                        count.add();
-//                        Counter.add();
-                    }}
-                    catch (Exception e) {
+                        System.out.println("Начинаем процедуру добавления животного");
+                        Animal tmp = AddAnimal();
+                        if (tmp != null) {
+                            System.out.println("Укажите список команд, через запятую, которые может выполнять ваше животное");
+                            tmp.addCommands(GetString().split(","));
+                            if (tmp.getName().length() == 0) throw new RuntimeException("Не указано имя питомца");
+                            if (tmp.getCommands().size() == 0)
+                                throw new RuntimeException("Не указано ни одной команды");
+                            lstAnimals.add(tmp);
+                            count.add();
+                        }
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                         System.out.println("Повторите попытку");
                         System.out.println();
