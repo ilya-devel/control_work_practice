@@ -4,14 +4,15 @@ import java.util.Scanner;
 
 public class GetAnswer {
     public static int ChoiceInMenu() {
-        int choice = -1;
-        while (choice == -1) {
+        int choice;
+        while (true) {
             try {
                 Scanner in = new Scanner(System.in);
                 System.out.print("--> ");
                 choice = in.nextInt();
+                break;
             } catch (Exception ex) {
-                System.out.println("Invalid input! Try Again.");
+                System.out.println("Не верный ввод, необходимо указать число от нуля и выше.");
             }
         }
         return choice;
