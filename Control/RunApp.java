@@ -26,10 +26,9 @@ public class RunApp {
                             System.out.println("Укажите список команд, через запятую, которые может выполнять ваше животное");
                             tmp.addCommands(GetString().split(","));
                             if (tmp.getName().length() == 0) throw new RuntimeException("Не указано имя питомца");
-                            if (tmp.getCommands().size() == 0)
-                                throw new RuntimeException("Не указано ни одной команды");
-                            lstAnimals.add(tmp);
+                            if (tmp.getCommands().size() == 0) throw new RuntimeException("Не указано ни одной команды");
                             count.add();
+                            lstAnimals.add(tmp);
                         }
                     } catch (Exception e) {
                         System.out.println(e.getMessage());

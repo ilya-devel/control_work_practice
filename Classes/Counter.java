@@ -9,12 +9,15 @@ public class Counter implements AutoCloseable{
         return counter;
     }
 
-    public void add() {
+    public void add() throws Exception {
+        if (counter == 2) throw new RuntimeException("Достигнуто максимальное количество животных");
+        int tmp = counter;
         counter ++;
+        if (tmp == counter) throw new RuntimeException("Увеличение счётчика не произошло");
     }
 
     @Override
     public void close() throws Exception {
-        throw new RuntimeException("\"Отработало закрытие счётчика\"");
+//        if (counter > 2) throw new RuntimeException("Достигнуто максимальное количество животных");
     }
 }
