@@ -21,22 +21,46 @@ public class RunApp {
                     System.out.println("Начинаем процедуру добавления животного");
                     Animal tmp = AddAnimal();
                     if (tmp != null) {
+                        System.out.println("Укажите список команд, через запятую, которые может выполнять ваше животное");
+                        tmp.addCommands(GetString().split(","));
                         lstAnimals.add(tmp);
-
                     }
                 }
                 case 2 -> {
-                    System.out.println("Вы хотите обучить новое животное или оставленное ранее (y/n)");
-                    System.out.println();
+                    if (lstAnimals.size() != 0) {
+                        System.out.println("Выберите животное, которое хотите обучить");
+                        System.out.println("Ниже список животных, которых сдали в питомник:\n");
+                        ShowListAnimals(lstAnimals);
+                        int numAnimal = ChoiceInMenu();
+                        if (numAnimal >= 0 && numAnimal < lstAnimals.size()) {
+                            System.out.println("Укажите команду или команды (через запятую) которым хотите обучить питомца");
+                            String commands = GetString();
+                            lstAnimals.get(numAnimal).addCommands(commands.split(","));
+                        } else {
+                            System.out.println("Животного с данным номером нет в питомнике");
+                        }
+                    } else System.out.println("На данный момент питомник не содержит животных\n");
                 }
                 case 3 -> {
                     if (lstAnimals.size() != 0) {
                         System.out.println("Ниже список животных, которых сдали в питомник:\n");
                         ShowListAnimals(lstAnimals);
-                    }
-                    else System.out.println("На данный момент питомник не содержит животных\n");
+                    } else System.out.println("На данный момент питомник не содержит животных\n");
                 }
-                case 4 -> System.out.println("Какое животное из списка ниже вы хотите узнать лучше");
+                case 4 -> {
+                    if (lstAnimals.size() != 0) {
+                        System.out.println("Какое животное из списка ниже вы хотите узнать лучше");
+                        System.out.println("Ниже список животных, которых сдали в питомник:\n");
+                        ShowListAnimals(lstAnimals);
+                        int numAnimal = ChoiceInMenu();
+                        if (numAnimal >= 0 && numAnimal < lstAnimals.size()) {
+                            System.out.println(lstAnimals.get(numAnimal));
+                            ShowListMakeCommands(lstAnimals.get(numAnimal));
+                        } else {
+                            System.out.println("Животного с данным номером нет в питомнике");
+                        }
+                    } else System.out.println("На данный момент питомник не содержит животных\n");
+                }
                 case 0 -> {
                     System.out.println("До свидания");
                     return;

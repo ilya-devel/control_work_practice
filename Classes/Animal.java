@@ -1,6 +1,7 @@
 package Classes;
 
 import java.util.LinkedList;
+import java.util.Scanner;
 
 abstract public class Animal {
     private String name;
@@ -45,19 +46,27 @@ abstract public class Animal {
         this.commands = new LinkedList<>();
     }
 
-    public void addCommand(String command) {
-        this.commands.add(command);
-        System.out.println(
-                getName() + " learned new command: " + command
-        );
+    public boolean addCommand(String command) {
+        for (String com : this.commands) {
+            if (com.equals(command.strip().toLowerCase())) {
+                return false;
+            }
+        }
+        this.commands.add(command.strip().toLowerCase());
+        return true;
+    }
+
+    public void addCommands(String[] commands) {
+        for (String command : commands) {
+            if (!this.addCommand(command)) System.out.println("Питомец уже знает команду " + command);
+        }
     }
 
     @Override
     public String toString() {
-        return "Animal{" +
-                "name='" + getName() + '\'' +
-                ", typeAnimal='" + getTypeAnimal() + '\'' +
-                ", kindAnimal='" + getKindAnimal() + '\'' +
-                '}';
+        return "Животное:" +
+                "зовут " + getName() + ", " +
+                "тип животного " + getTypeAnimal() + ", " +
+                ", разновидность " + getKindAnimal();
     }
 }
