@@ -6,7 +6,7 @@ public class App {
         try {
             Run();
         } catch (Exception e) {
-            System.out.println("Программа завершилась с ошибкой, описание ниже:");
+            System.out.println("Программа завершилась с ошибкой, описание ниже: ");
             System.out.println(e.getMessage());
         }
     }
