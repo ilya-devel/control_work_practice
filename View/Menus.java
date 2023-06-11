@@ -5,8 +5,9 @@ import Classes.Animal;
 import java.util.LinkedList;
 
 public class Menus {
-    public static void MainMenu() {
+    public static void MainMenu(int values) {
         System.out.println("В нашем питомнике вы можете оствить ваше животное на время или обучить новым коммандам:");
+        System.out.println("На данный момент у нас в наличии " + values + " животных");
         System.out.println("1. Оставить животное");
         System.out.println("2. Обучить животное");
         System.out.println("3. Посмотреть список животных в питомнике");
